@@ -4,27 +4,44 @@ class Player(val Name: String) {
   var score = 0
   var hand = Array[Main.Card]()
   var collected = Array[Main.Card]()
-  def GetCard() = {
-    hand = hand :+ Main.Cards.dealCard()
+  
+  def addToHand(c: Main.Card) = {
+    try{
+      hand = hand :+ c
+    }
+    catch {
+      case ex: NullPointerException => this.hand = Array(c)
+    }
   }
+  
   def showHand() = {
-    print("\n CARDS: \n ===== \n")
+    print("\n ========== YOUR  CARDS ========== \n")
     for(i <- hand){
       print(i.thisCard + " ")
     }
+    print("\n")
   }
-  def removeCard(index: Int ): Main.Card = {
+  def coll(c: Main.Card) = {
+    try{
+      this.collected = this.collected :+ c
+    }
+    catch {
+      case ex: NullPointerException => this.collected = Array(c)
+    }
+  }
+  
+  def getCard(index: Int ): Main.Card = {
     var i = index - 1
     if(index <= hand.length){
       val card = hand(i)
       hand = hand.take(i) ++ hand.takeRight(hand.length - index)
-      this.showHand()
+      print(card.thisCard() + " was chosen!\n")
       card
     } else {
-      print ("No such card. Options :") 
+      print ("New try. Options :\n") 
       this.showHand()
-      val a = scala.io.StdIn.readLine()
-      this.removeCard(a.toInt)
+      val a = scala.io.StdIn.readInt
+      this.getCard(a)
     }
   }
     

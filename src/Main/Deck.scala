@@ -5,33 +5,43 @@ import scala.math.random
  * then makesDeck which it can shuffle aswell
  * and can deal cards
  */
-object Cards {
+
+object Deck {
   var cards = Array[Card]()
- 
+  
+  //Makes a shuffled deck
   def makeDeck() ={
+    var cards = Array[Card]()
     val suits = List('H','S','D','C')
     val values = Range(1,14).toList
     var listOfCard = suits.flatMap(a => values.map(b => (b,a)))
     for(i <- listOfCard){
-      this.cards = this.cards :+ new Card(i._1,i._2)
-      print(i)
-  }
+      if(i == (1,'H')){
+        var cards = Array[Card](new Card(1, 'H'))
+      }
+      else{
+        cards = cards :+ new Card(i._1,i._2)
+      }
+      
+    }
+    cards = cards :+ new Card(1, 'H')
+    var a = cards.toList
+    a = scala.util.Random.shuffle(a)
+    cards = a.toArray
+    cards
   }
   
-  def shuffleDeck() = {
+  def shuffleDeck():Unit = {
     var a = this.cards.toList
     a = scala.util.Random.shuffle(a)
-    for (i <- a){ print(i.thisCard)}
     this.cards = a.toArray
   }
   def dealCard(): Main.Card = {
     // saves the first Card as a variable then 
     // removes it from the deck
-    val Card = this.cards(0)
-    this.cards = this.cards.drop(1)
-    print (Card.thisCard)
-    print (this.cards(0).thisCard)
-    Card
+    val Cardo = cards(0)
+    cards = cards.drop(1)
+    Cardo
   }
   
 }

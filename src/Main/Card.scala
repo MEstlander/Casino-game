@@ -5,10 +5,12 @@ package Main
  */
 
 class Card(val value: Int,  val gsuit: Char) {
+  
   val tablevalue = value
   val suit = gsuit
   var point = 0
   var handValue = this.value
+  
   if(this.value == 1){
     handValue = 14
     point = 1
@@ -21,7 +23,7 @@ class Card(val value: Int,  val gsuit: Char) {
     handValue = 16
     point = 2
   }
-  def thisCard(): String =  {
+  def thisCard(): String =  { //Card info as string for other functions like showHand
     return (this.value).toString + this.suit
   }
 }
