@@ -15,7 +15,8 @@ object Game extends App {
 		print("\nINFO\n")
 		print("\nThe cards in your hand and on the table are indexed 1,2,3,4... if you \n" +
 				"cannot use a card, type '0' and you will be able to put down a card on the table\n" +
-				"To collect a sum add a '+' between indexes, to separate sums add ','.\n")
+				"To collect a sum just type the index after each other without any spaces or symbols,\n"+
+				"to separate sums add ','.\n")
 		print("\nRULES\n")
 		print("You can only use one card from your hand, you want to\n" +
 				 "collect sums from the table that adds up to your card.\n" +
