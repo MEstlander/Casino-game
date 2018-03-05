@@ -15,7 +15,7 @@ class Player(val Name: String) {
   }
   
   def showHand() = {
-    print("\n ========== YOUR  CARDS ========== \n")
+    print("\n\n ========== YOUR  CARDS ========== \n\n")
     for(i <- hand){
       print(i.thisCard + " ")
     }

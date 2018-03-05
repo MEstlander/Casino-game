@@ -16,8 +16,9 @@ class Score(val players: Array[Main.Player]) {
     }
     for (j <- mostCards){
       j.score += 1
-      this.mostSpades()
+      
     }
+    this.mostSpades()
   }
   
   def mostSpades():Unit = {
@@ -46,7 +47,7 @@ class Score(val players: Array[Main.Player]) {
       for(j <- i.collected){
         i.score += j.point
     }
-    print("Player" + i.Name + "has" + i.score + "points\n ")
+    print("\nPlayer " + i.Name + " has " + i.score + " points\n")
   }
     this.winner()
   }
@@ -81,7 +82,9 @@ class Score(val players: Array[Main.Player]) {
         }
       }
       else{
-        print("THE WINNER IS" + winners(0).Name + "!!!!!!")
+        print("\n ============================== \n" +
+            " === THE WINNER IS " + winners(0).Name + "! ! ! === \n" +
+            " ==============================")
       }
     }
   }

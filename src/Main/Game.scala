@@ -13,16 +13,17 @@ object Game extends App {
 		print("		Welcome to the Casino Card Game!\n")
 		print("		================================\n")
 		print("\nINFO\n")
-		print("\nThe cards in your hand and on the table are indexed 1,2,3,4... if you \n" +
-				"cannot use a card, type '0' and you will be able to put down a card on the table\n" +
-				"To collect a sum just type the index after each other without any spaces or symbols,\n"+
-				"to separate sums add ','.\n")
+		print("\nYour cards and the ones on the table are indexed 1,2,3,4... if you \n" +
+				"cannot collect anything, type '0' and you will be able to place a card on the table\n" +
+				"To collect cards just type the index after each other without any spaces or symbols,\n"+
+				"to colect separate card combinations add ',' between the combinations.\n")
 		print("\nRULES\n")
-		print("You can only use one card from your hand, you want to\n" +
-				 "collect sums from the table that adds up to your card.\n" +
+		print("You can only use one card from your hand each turn, you want to\n" +
+				 "collect card combinations from the table that adds up to your cards value.\n" +
 				 "10D is worth 2p and is valued at 16 in the hand, 2S is worth 1p and is\n" +
 				 "valued at 15 in the hand. Aces (1's) are worth 1p and are valued 14 in \n" +
-				 "the hand. For a sweep you get 1p, for most spades 2p and for most cards 1p.\n" +
+				 "the hand. For clearing the table you get 1p, player with the most spades at\n" +
+				 "the end of a round gets 2p and for most cards 1p.\n" +
 				 "First player to 16p wins!")
 		print("You can save the game by typing 'SAVE', if you wish to exit the game,\n" + 
 				"type 'QUIT'.")
@@ -73,11 +74,11 @@ object Game extends App {
   }
   
   def showTable() ={
-    print("\n ========== TABLE CARDS ========== \n")
+    print("\n ========== TABLE CARDS ========== \n\n")
     var j = 0 
     for(i <- gTable){
       j +=1
-      print(i.thisCard + "("+j+")")
+      print(i.thisCard + " ")
     }
   }
   
@@ -85,7 +86,6 @@ object Game extends App {
     round += 1
     gDeck = Deck
     gDeck.cards = gDeck.makeDeck()
-    print(gDeck.cards.length)
     var dealer = gPlayers(0)
     print("\nRounds begins! Dealer is: " +dealer.Name+"\n")
     gPlayers = gPlayers.tail :+ gPlayers(0) //makes dealer last
@@ -119,10 +119,8 @@ object Game extends App {
         }
       }
       this.takeAll
-      print()
-  		print("		*** Scores after round " + round + " ***")
-  		print()
-  		new Main.Score(gPlayers)
+  		print("\n ========== Scores after round " + round + " ========== \n")
+  		new Main.Score(gPlayers).count
       
       for(player <- gPlayers){ //Clears everyones collected cards
         player.collected = Array[Main.Card]()
@@ -139,7 +137,7 @@ object Game extends App {
       var index: Int = CheckInput("turn").toInt 
     
     if(index == 0){
-      print("Which card do you want to give to the table?")
+      print("Which card do you want to give to the table?\n")
       gTable = gTable :+ p.getCard(CheckInput("turn").toInt)
       return
     }else if(index > p.hand.length){
@@ -185,7 +183,7 @@ object Game extends App {
         cardValue += gTable(i.trim.toInt - 1).value
         }
       if(cardValue != in.handValue){
-        print("Combination doesn't work")
+        print("Combination doesn't work\n")
         this.collect(p, in)
       }
     }
@@ -215,6 +213,7 @@ object Game extends App {
   } 
   //When taking input from players this checks it's correct
   //if it isn't it prompts the user to input again
+  //also used for checking if players want to save or not
   def CheckInput(func: String): String = {
     var input = scala.io.StdIn.readLine()
     if(func == "players"){
@@ -252,7 +251,7 @@ object Game extends App {
       }
       catch {
         case _: Any => {
-          print("Please give an integrer")
+          print("Please give an integrer.\n")
           CheckInput(func)
         }
       }
@@ -270,13 +269,13 @@ object Game extends App {
       }
       catch{
         case _: Any => {
-           print("Input was invalid. Try again!")
+           print("Input was invalid. Try again!\n")
            CheckInput(func)
         }
       }
     }
     else {
-      print("This shouldn't have happend... Awkward...")
+      print("This shouldn't have happend... Awkward...\n")
       input
     }
    }
