@@ -29,7 +29,7 @@ object Game extends App {
 		
 		
 	print("\nHow many players?\n")	
-	this.players(scala.io.StdIn.readInt())
+	this.players(CheckInput("players").toInt)
 	this.newRound
 	def rmFromTable(c: Main.Card): (Boolean, Main.Card) = {
     var i = 0
@@ -51,9 +51,9 @@ object Game extends App {
   for( i <- 1 to amt){
     print("Name of player?\n")
     if(i == 1){
-      gPlayers = Array(new Main.Player(scala.io.StdIn.readLine()))
+      gPlayers = Array(new Main.Player(CheckInput("names")))
     } else {
-      gPlayers = gPlayers :+ new Main.Player(scala.io.StdIn.readLine())
+      gPlayers = gPlayers :+ new Main.Player(CheckInput("names"))
     }
     print("Player: " + gPlayers.reverse.head.Name + " added\n")
     }
@@ -124,7 +124,7 @@ object Game extends App {
   		print()
   		new Main.Score(gPlayers)
       
-      for(player <- gPlayers){
+      for(player <- gPlayers){ //Clears everyones collected cards
         player.collected = Array[Main.Card]()
       if(NotOver){
         this.newRound
@@ -136,11 +136,11 @@ object Game extends App {
   def turn(p: Main.Player): Unit = {
     p.showHand
     print("Which card do you wanna use?\n")
-      var index: Int = scala.io.StdIn.readInt 
+      var index: Int = CheckInput("turn").toInt 
     
     if(index == 0){
       print("Which card do you want to give to the table?")
-      gTable = gTable :+ p.getCard(scala.io.StdIn.readInt)
+      gTable = gTable :+ p.getCard(CheckInput("turn").toInt)
       return
     }else if(index > p.hand.length){
       print("No such card")
@@ -157,7 +157,7 @@ object Game extends App {
   def collect(p: Main.Player, in: Main.Card): Unit = {
     print("Which cards do you want to pick up?\n")
     var cardValue = 0
-    var cardIndexes = Array(scala.io.StdIn.readLine())
+    var cardIndexes = Array(CheckInput("collect"))
     
     if(cardIndexes(0) == "0") { //return if you type wrong / can't use that card
         p.addToHand(in)
@@ -212,6 +212,73 @@ object Game extends App {
     for(i <- gTable){
       lp.coll(rmFromTable(i)._2)
     }
-  }
- }
+  } 
+  //When taking input from players this checks it's correct
+  //if it isn't it prompts the user to input again
+  def CheckInput(func: String): String = {
+    var input = scala.io.StdIn.readLine()
+    if(func == "players"){
+      try{
+        var nmbr = input.toInt
+        if(nmbr > 1 && nmbr <13){
+          return input
+        }
+        else{
+        print("Please enter a number between 2 and 12\n")
+        CheckInput(func)
+        }
+      
+      }
+      catch {
+        case _: Any => {
+          print("Please enter a number between 2 and \n")
+          CheckInput(func)
+        }
+        }
+      }
+    else if(func == "names"){
+      return input
+    }
+    else if(func == "turn"){
+      try{
+        var nmbr = input.toInt
+        if(nmbr >= 0){
+          return input
+        }
+        else{
+          print("Please give a positive number\n")
+          CheckInput(func)
+        }
+      }
+      catch {
+        case _: Any => {
+          print("Please give an integrer")
+          CheckInput(func)
+        }
+      }
+    
+    }
+    else if(func == "collect"){
+      try{
+        var cards = input.split(",")
+        for(i <- cards){
+          for(j <- i.split("")){
+            require(j.toInt >= 0)
+          }
+        }
+        return input
+      }
+      catch{
+        case _: Any => {
+           print("Input was invalid. Try again!")
+           CheckInput(func)
+        }
+      }
+    }
+    else {
+      print("This shouldn't have happend... Awkward...")
+      input
+    }
+   }
+}
 
