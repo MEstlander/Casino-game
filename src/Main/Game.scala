@@ -8,7 +8,7 @@ object Game extends App {
   var lp = new Main.Player("dumbo")
   var NotOver = true
   
-  print()
+  
 		print("		================================\n")
 		print("		Welcome to the Casino Card Game!\n")
 		print("		================================\n")
@@ -46,6 +46,8 @@ object Game extends App {
   }
 		
 	def players(amt: Int) = {
+	  require(amt > 1)
+	  require(amt < 13)
   for( i <- 1 to amt){
     print("Name of player?\n")
     if(i == 1){
@@ -137,6 +139,7 @@ object Game extends App {
       var index: Int = scala.io.StdIn.readInt 
     
     if(index == 0){
+      print("Which card do you want to give to the table?")
       gTable = gTable :+ p.getCard(scala.io.StdIn.readInt)
       return
     }else if(index > p.hand.length){
@@ -160,11 +163,11 @@ object Game extends App {
         p.addToHand(in)
         turn(p)
       }
-    var cheatArray = Array(0)
+    var cheatArray = Array(-1)
     for(i <- cardIndexes(0).split(",")){
       for(j <- i.split("")){
         if(cheatArray.contains(j.toInt)){
-          print("========== NO CHEATING ==========")
+          print(" ========== NO CHEATING ==========")
           p.addToHand(in)
           turn(p)
         }
