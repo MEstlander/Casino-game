@@ -1,0 +1,21 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\main_2.12-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Game$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Game$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Score.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Score.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Player.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Player.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Game$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Game$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Card.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Card.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Game.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Game.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Deck.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Deck.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main\Deck$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\MaxEstlander\workspace\KasinoPeli\src\Main\target\scala-2.12\classes\Main\Deck$.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m
