@@ -3,7 +3,11 @@ package Main
 object Game extends App {
   var gPlayers = Array[Main.Player]()
   var gDeck = Deck
+<<<<<<< HEAD
   var gTable = Array[Main.Card](new Card(1,'S'))
+=======
+  var gTable = Array[Main.Card]()
+>>>>>>> origin/master
   var round = 0
   var lp = new Main.Player("dumbo")
   var NotOver = true
@@ -13,6 +17,7 @@ object Game extends App {
 		print("		Welcome to the Casino Card Game!\n")
 		print("		================================\n")
 		print("\nINFO\n")
+<<<<<<< HEAD
 		print("\nThe cards in your hand and on the table are indexed 1,2,3,4... if you \n" +
 				"cannot use a card, type '0' and you will be able to put down a card on the table\n" +
 				"To collect a sum just type the index after each other without any spaces or symbols,\n"+
@@ -25,11 +30,30 @@ object Game extends App {
 				 "the hand. For a sweep you get 1p, for most spades 2p and for most cards 1p.\n" +
 				 "First player to 16p wins!")
 		print("You can save the game by typing 'SAVE', if you wish to exit the game,\n" + 
+=======
+		print("\nYour cards and the ones on the table are indexed 1,2,3,4... if you cannot \n" +
+				"collect anything, type '0' and you will be able to place a card on the table\n" +
+				"To collect cards just type the indexes after each other with a '+' between \n"+
+				"indexes, to collect separate card combinations add ',' between the combinations.\n")
+		print("\nRULES\n")
+		print("\nYou can only use one card from your hand each turn, you want to collect\n" +
+				 "card combinations from the table that adds up to your cards value.\n" +
+				 "10D is worth 2p and is valued at 16 in the hand, 2S is worth 1p and is\n" +
+				 "valued at 15 in the hand. Aces (1's) are worth 1p and are valued 14 in the\n" +
+				 "hand. For clearing the table you get 1p, player with the most spades at\n" +
+				 "the end of a round gets 2p and for most cards 1p.\n" +
+				 "First player to 16p wins!\n")
+		print("\nYou can save the game by typing 'SAVE', if you wish to exit the game,\n" + 
+>>>>>>> origin/master
 				"type 'QUIT'.")
 		
 		
 	print("\nHow many players?\n")	
+<<<<<<< HEAD
 	this.players(scala.io.StdIn.readInt())
+=======
+	this.players(CheckInput("players").toInt)
+>>>>>>> origin/master
 	this.newRound
 	def rmFromTable(c: Main.Card): (Boolean, Main.Card) = {
     var i = 0
@@ -49,6 +73,7 @@ object Game extends App {
 	  require(amt > 1)
 	  require(amt < 13)
   for( i <- 1 to amt){
+<<<<<<< HEAD
     print("Name of player?\n")
     if(i == 1){
       gPlayers = Array(new Main.Player(scala.io.StdIn.readLine()))
@@ -69,15 +94,52 @@ object Game extends App {
       else{
         gTable = gTable :+ gDeck.dealCard()
       }
+=======
+    
+	  print("Name of player?\n")
+    addPlayer(CheckInput("names"))
+    }
+  gPlayers = scala.util.Random.shuffle(gPlayers.toList).toArray //shuffle players to random order
+  }
+	def addPlayer(a: String){
+	  if(gPlayers.isEmpty){
+	    gPlayers = Array(new Main.Player(a))
+    } else {
+      gPlayers = gPlayers :+ new Main.Player(a)
+    }
+    print("Player: " + a + " added\n")
+  }
+  
+  def dealToTable(a: Main.Card) = {
+    if (gTable.length == 0){
+      gTable = Array(gDeck.dealCard())
+    }
+    else{
+      gTable = gTable :+ gDeck.dealCard()
+>>>>>>> origin/master
     }
   }
   
   def showTable() ={
+<<<<<<< HEAD
     print("\n ========== TABLE CARDS ========== \n")
     var j = 0 
     for(i <- gTable){
       j +=1
       print(i.thisCard + "("+j+")")
+=======
+    print("\n ========== TABLE CARDS ========== \n\n")
+    var j = 0
+    var k = 1
+    for(i <- gTable){
+      j +=1
+      print(i.thisCard + "\t")
+    }
+    print("\n")
+    for(i <- gTable) {
+      print(k + "\t")
+      k += 1
+>>>>>>> origin/master
     }
   }
   
@@ -85,12 +147,20 @@ object Game extends App {
     round += 1
     gDeck = Deck
     gDeck.cards = gDeck.makeDeck()
+<<<<<<< HEAD
     print(gDeck.cards.length)
     var dealer = gPlayers(0)
     print("\nRounds begins! Dealer is: " +dealer.Name+"\n")
     gPlayers = gPlayers.tail :+ gPlayers(0) //makes dealer last
     this.dealToTable
     for(i <- Range(0,4)){
+=======
+    var dealer = gPlayers(0)
+    print("\nRounds begins! Dealer is: " +dealer.Name+"\n")
+    gPlayers = gPlayers.tail :+ gPlayers(0) //makes dealer last
+    for(i <- Range(0,4)){
+      dealToTable(gDeck.dealCard)
+>>>>>>> origin/master
       for(j <- gPlayers){
         j.addToHand(gDeck.dealCard)
       }
@@ -119,12 +189,19 @@ object Game extends App {
         }
       }
       this.takeAll
+<<<<<<< HEAD
       print()
   		print("		*** Scores after round " + round + " ***")
   		print()
   		new Main.Score(gPlayers)
       
       for(player <- gPlayers){
+=======
+  		print("\n ========== Scores after round " + round + " ========== \n")
+  		new Main.Score(gPlayers).count
+      
+      for(player <- gPlayers){ //Clears everyones collected cards
+>>>>>>> origin/master
         player.collected = Array[Main.Card]()
       if(NotOver){
         this.newRound
@@ -136,11 +213,19 @@ object Game extends App {
   def turn(p: Main.Player): Unit = {
     p.showHand
     print("Which card do you wanna use?\n")
+<<<<<<< HEAD
       var index: Int = scala.io.StdIn.readInt 
     
     if(index == 0){
       print("Which card do you want to give to the table?")
       gTable = gTable :+ p.getCard(scala.io.StdIn.readInt)
+=======
+      var index: Int = CheckInput("turn").toInt 
+    
+    if(index == 0){
+      print("Which card do you want to give to the table?\n")
+      gTable = gTable :+ p.getCard(CheckInput("turn").toInt)
+>>>>>>> origin/master
       return
     }else if(index > p.hand.length){
       print("No such card")
@@ -157,7 +242,11 @@ object Game extends App {
   def collect(p: Main.Player, in: Main.Card): Unit = {
     print("Which cards do you want to pick up?\n")
     var cardValue = 0
+<<<<<<< HEAD
     var cardIndexes = Array(scala.io.StdIn.readLine())
+=======
+    var cardIndexes = Array(CheckInput("collect"))
+>>>>>>> origin/master
     
     if(cardIndexes(0) == "0") { //return if you type wrong / can't use that card
         p.addToHand(in)
@@ -165,7 +254,11 @@ object Game extends App {
       }
     var cheatArray = Array(-1)
     for(i <- cardIndexes(0).split(",")){
+<<<<<<< HEAD
       for(j <- i.split("")){
+=======
+      for(j <- i.split("\\+")){
+>>>>>>> origin/master
         if(cheatArray.contains(j.toInt)){
           print(" ========== NO CHEATING ==========")
           p.addToHand(in)
@@ -181,6 +274,7 @@ object Game extends App {
     }
     for(j <- cardIndexes){
       cardValue = 0
+<<<<<<< HEAD
       for(i <- j.split("")){
         cardValue += gTable(i.trim.toInt - 1).value
         }
@@ -192,6 +286,19 @@ object Game extends App {
       var collCards = Array[Main.Card](new Card(15, 'G')) //Golden15 never to be used
       for(i <- cardIndexes){
         for(j <- i.split("")){
+=======
+      for(i <- j.split("\\+")){
+        cardValue += gTable(i.trim.toInt - 1).value
+        }
+      if(cardValue != in.handValue){
+        print("Combination doesn't work\n")
+        this.collect(p, in)
+      }
+    }
+      var collCards = Array[Main.Card](new Card(15, "G")) //Golden15 never to be used
+      for(i <- cardIndexes){
+        for(j <- i.split("\\+")){
+>>>>>>> origin/master
         collCards = collCards :+ gTable(j.toInt - 1)
         }
       } 
@@ -212,6 +319,97 @@ object Game extends App {
     for(i <- gTable){
       lp.coll(rmFromTable(i)._2)
     }
+<<<<<<< HEAD
   }
  }
+=======
+  } 
+  //When taking input from players this checks it's correct
+  //if it isn't it prompts the user to input again
+  //also used for checking if players want to save or not
+  def CheckInput(func: String): String = {
+    var input = scala.io.StdIn.readLine()
+    if(input.toLowerCase == "save"){
+      SaveLoad.Save(func)
+    }
+    if(input.toLowerCase == "load"){
+      SaveLoad.Load()
+    }
+    if(input.toLowerCase == "quit"){
+      System.exit(1)
+    }
+    if(func == "players"){
+      try{
+        var nmbr = input.toInt
+        if(nmbr > 1 && nmbr <13){
+          return input
+        }
+        else{
+        print("Please enter a number between 2 and 12\n")
+        CheckInput(func)
+        }
+      
+      }
+      catch {
+        case _: Any => {
+          print("Please enter a number between 2 and 12\n")
+          CheckInput(func)
+        }
+        }
+    } else if(func == "names"){
+      if(gPlayers.isEmpty){
+        return input
+      }
+      else{
+        for(i <- Range(0,gPlayers.length)){
+          if(gPlayers(i).Name == input){
+            print("Name already picked\n")
+            CheckInput(func)
+          }
+        }
+            
+        return input
+      }
+    } else if(func == "turn"){
+      try{
+        var nmbr = input.toInt
+        if(nmbr >= 0){
+          return input
+        }
+        else{
+          print("Please give a positive number\n")
+          CheckInput(func)
+        }
+      }
+      catch {
+        case _: Any => {
+          print("Please give an integrer.\n")
+          CheckInput(func)
+        }
+      }
+    
+    } else if(func == "collect"){
+      try{
+        var cards = input.split(",")
+        for(i <- cards){
+          for(j <- i.split("\\+")){
+            require(j.toInt >= 0)
+          }
+        }
+        return input
+      }
+      catch{
+        case _: Any => {
+           print("Input was invalid. Try again!\n")
+           CheckInput(func)
+        }
+      }
+    }
+    else {
+      print("This shouldn't have happend... Awkward...\n")
+      input
+    }
+   }
+}
+>>>>>>> origin/master
 
