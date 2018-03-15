@@ -110,7 +110,7 @@ object Game extends App {
     while(NotOver){
       
       var player = gPlayers(turns)
-      while(player.hand.length > 0){
+      while(gPlayers(gPlayers.length - 1).hand.length > 0){ //checks if the last person has no cards
         player = gPlayers(turns)
         print("\n" + player.Name + "'s turn\n")
         this.showTable
@@ -145,7 +145,7 @@ object Game extends App {
     
     if(index == 0){
       print("Which card do you want to give to the table?\n")
-      gTable = gTable :+ p.getCard(CheckInput("turn").toInt)
+      gTable = gTable :+ p.getCard(CheckInput("turn2").toInt)
       return
     }else if(index > p.hand.length){
       print("No such card")
@@ -282,7 +282,25 @@ object Game extends App {
         }
       }
     
-    } else if(func == "collect"){
+    } else if(func == "turn2"){
+      try{
+        var nmbr = input.toInt
+        if(nmbr > 0){
+          return input
+        }
+        else{
+          print("Please give a positive number\n")
+          CheckInput(func)
+        }
+      }
+      catch {
+        case _: Any => {
+          print("Please give an integrer.\n")
+          CheckInput(func)
+        }
+      }
+    
+    }else if(func == "collect"){
       try{
         var cards = input.split(",")
         for(i <- cards){
