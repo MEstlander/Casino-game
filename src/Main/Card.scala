@@ -4,7 +4,7 @@ package Main
  * also gives suit 
  */
 
-class Card(val value: Int,  val gsuit: Char) {
+class Card(val value: Int,  val gsuit: String) {
   
   val tablevalue = value
   val suit = gsuit
@@ -15,11 +15,11 @@ class Card(val value: Int,  val gsuit: Char) {
     handValue = 14
     point = 1
   }
-  if(this.value == 2 && this.suit == 'S'){
+  if(this.value == 2 && this.suit == "S"){
     handValue =  15
     point = 1
   }
-  if(this.value == 10 && this.suit == 'D'){
+  if(this.value == 10 && this.suit == "D"){
     handValue = 16
     point = 2
   }

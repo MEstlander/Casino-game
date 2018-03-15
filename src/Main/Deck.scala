@@ -12,19 +12,19 @@ object Deck {
   //Makes a shuffled deck
   def makeDeck() ={
     var cards = Array[Card]()
-    val suits = List('H','S','D','C')
+    val suits = List("H","S","D","C")
     val values = Range(1,14).toList
     var listOfCard = suits.flatMap(a => values.map(b => (b,a)))
     for(i <- listOfCard){
       if(i == (1,'H')){
-        var cards = Array[Card](new Card(1, 'H'))
+        var cards = Array[Card](new Card(1, "H"))
       }
       else{
         cards = cards :+ new Card(i._1,i._2)
       }
       
     }
-    cards = cards :+ new Card(1, 'H')
+    cards = cards :+ new Card(1, "H")
     var a = cards.toList
     a = scala.util.Random.shuffle(a)
     cards = a.toArray
@@ -42,6 +42,14 @@ object Deck {
     val Cardo = cards(0)
     cards = cards.drop(1)
     Cardo
+  }
+  //For loading purposes only
+  def addToDeck(a: Main.Card): Unit = {
+    if(cards.isEmpty){
+      cards = Array(a)
+    }
+    else
+      cards = cards :+ a
   }
   
 }
