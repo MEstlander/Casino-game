@@ -7,7 +7,8 @@ object Game extends App {
   var round = 0
   var lp = new Main.Player("dumbo")
   var NotOver = true
-  
+  var turns = 0
+  var collCard = new Main.Card(15,"G") //Golden 15 used to avoid null pointer exception
   
 		print("		================================\n")
 		print("		Welcome to the Casino Card Game!\n")
@@ -106,7 +107,7 @@ object Game extends App {
   }
   
   def letsPlay() = {
-    var turns = 0
+    turns = 0
     while(NotOver){
       
       var player = gPlayers(turns)
@@ -161,6 +162,7 @@ object Game extends App {
   
   def collect(p: Main.Player, in: Main.Card): Unit = {
     print("Which cards do you want to pick up?\n")
+    collCard = in
     var cardValue = 0
     var cardIndexes = Array(CheckInput("collect"))
     
@@ -224,7 +226,10 @@ object Game extends App {
   def CheckInput(func: String): String = {
     var input = scala.io.StdIn.readLine()
     if(input.toLowerCase == "save"){
-      SaveLoad.Save(func)
+      if(func == "collect"){
+        gPlayers(turns).addToHand(collCard) //adds the card back to player before saving
+      }
+      SaveLoad.Save(func, turns)
     }
     if(input.toLowerCase == "load"){
       SaveLoad.Load()

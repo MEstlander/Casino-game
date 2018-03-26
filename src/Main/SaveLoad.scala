@@ -5,7 +5,7 @@ import scala.io.Source
 object SaveLoad {
   
   
-  def Save(func: String) :Unit = {
+  def Save(func: String, turns: Int) :Unit = {
     try{
       var save = new PrintWriter(new File("save.txt"))
       save.write("Deck")
@@ -24,7 +24,9 @@ object SaveLoad {
       save.write(System.getProperty("line.separator"))
       save.write(func)
       save.write(System.getProperty("line.separator"))
-      save.write(Game.gPlayers.length.toString)
+      save.write("Turn")
+      save.write(System.getProperty("line.separator"))
+      save.write(turns.toString)
       save.write(System.getProperty("line.separator"))
       for(i <- Game.gPlayers){
         save.write("Players")
@@ -69,11 +71,13 @@ object SaveLoad {
   
   
   def Load() = {
-    var phases : Array[String] = Array("Funct", "Deck", "Table", "Players", "Hand", "Collected", "Score", "Lp", "Round")
+    Game
+    var phases : Array[String] = Array("Funct", "Deck", "Table", "Players", "Hand", "Collected", "Score", "Lp", "Round", "Turn")
     var phase = ""
-    var playerNumber = 0
+    var playerNumber = -1
     var funct = ""
-    for(line <- Source.fromFile("save.txt").getLines())
+    var turns = 0
+    for(line <- Source.fromFile("save.txt").getLines()){
       if(phases.contains(line)){
         phase = line
       }
@@ -85,13 +89,8 @@ object SaveLoad {
           Game.dealToTable(new Card(line.split(",")(0).toInt, line.split(",")(1)))
         }
         if(phase == "Players"){
-          if (Game.gPlayers.isEmpty){
-            Game.gPlayers = Array(new Player(line))
-          }
-          else{
-            Game.gPlayers = Game.gPlayers :+ (new Player(line))
+            Game.addPlayer(line)
             playerNumber += 1
-          }
         }
         if(phase == "Hand"){
           Game.gPlayers(playerNumber).addToHand(new Card(line.split(",")(0).toInt, line.split(",")(1)))
@@ -100,7 +99,10 @@ object SaveLoad {
           Game.gPlayers(playerNumber).coll(new Card(line.split(",")(0).toInt, line.split(",")(1)))
         }
         if(phase == "Funct"){
-          funct == line
+          funct = line
+        }
+        if(phase == "Turn"){
+          turns = line.toInt
         }
         if(phase == "Score") {
           Game.gPlayers(playerNumber).score = line.toInt
@@ -116,8 +118,21 @@ object SaveLoad {
           Game.round = line.toInt
         }
       }
-      
-    Game.CheckInput(funct)
+    }
+    for (i <- Game.gPlayers){
+      print(i.Name + "\n")
+    }
+    print(Game.gPlayers.length)
+    print("\n" + turns.toString + "\n")
+    print(Game.gPlayers(turns).Name) 
+    if((funct == "turn" || funct == "turn2") || funct == "collect"){
+      Game.showTable
+      Game.turn(Game.gPlayers(turns))
+    }
+    else{
+      print("Yea just start a new game there was nothing of value saved\n")
+      Game
+    }
   }
   
 }

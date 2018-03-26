@@ -19,7 +19,7 @@ class Player(val Name: String) {
     for(i <- hand){
       print(i.thisCard + "\t")
     }
-    print("\n")
+    print("\n\n")
   }
   def coll(c: Main.Card) = {
     try{
@@ -40,7 +40,7 @@ class Player(val Name: String) {
     } else {
       print ("New try. Options :\n") 
       this.showHand()
-      val a = scala.io.StdIn.readInt
+      val a = Game.CheckInput("turn2").toInt
       this.getCard(a)
     }
   }
