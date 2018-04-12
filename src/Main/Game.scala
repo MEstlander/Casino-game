@@ -8,7 +8,8 @@ object Game extends App {
   var lp = new Main.Player("dumbo")
   var NotOver = true
   var turns = 0
-  var collCard = new Main.Card(15,"G") //Golden 15 used to avoid null pointer exception
+  var collCard = new Main.Card(15,"G") //Golden 15 used to avoid null pointer exceptio
+  var loaded = false
   
 		print("		================================\n")
 		print("		Welcome to the Casino Card Game!\n")
@@ -249,7 +250,12 @@ object Game extends App {
       SaveLoad.Save(func, turns)
     }
     if(input.toLowerCase == "load"){
-      SaveLoad.Load()
+      if(!loaded){
+        SaveLoad.Load()
+      } else {
+        print("\n You already loaded once. Restart if you want to load again.\n" )
+        CheckInput(func)
+      }
     }
     if(input.toLowerCase == "quit"){
       System.exit(1)

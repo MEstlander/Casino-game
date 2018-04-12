@@ -33,6 +33,10 @@ object SaveLoad {
         save.write(System.getProperty("line.separator"))
         save.write(i.Name)
         save.write(System.getProperty("line.separator"))
+        save.write("Bot")
+        save.write(System.getProperty("line.separator"))
+        save.write(i.Bot.toString)
+        save.write(System.getProperty("line.separator"))
         save.write("Hand")
         save.write(System.getProperty("line.separator"))
         for(j <- i.hand){
@@ -72,7 +76,7 @@ object SaveLoad {
   
   def Load() = {
     Game
-    var phases : Array[String] = Array("Funct", "Deck", "Table", "Players", "Hand", "Collected", "Score", "Lp", "Round", "Turn")
+    var phases : Array[String] = Array("Bot","Funct", "Deck", "Table", "Players", "Hand", "Collected", "Score", "Lp", "Round", "Turn")
     var phase = ""
     var playerNumber = -1
     var funct = ""
@@ -91,6 +95,9 @@ object SaveLoad {
         if(phase == "Players"){
             Game.addPlayer(line)
             playerNumber += 1
+        }
+        if(phase == "Bot"){
+          Game.gPlayers(playerNumber).Bot = (line == "true")
         }
         if(phase == "Hand"){
           Game.gPlayers(playerNumber).addToHand(new Card(line.split(",")(0).toInt, line.split(",")(1)))
@@ -119,13 +126,9 @@ object SaveLoad {
         }
       }
     }
-    for (i <- Game.gPlayers){
-      print(i.Name + "\n")
-    }
-    print(Game.gPlayers.length)
-    print("\n" + turns.toString + "\n")
     print(Game.gPlayers(turns).Name) 
     if((funct == "turn" || funct == "turn2") || funct == "collect"){
+      Game.loaded = true
       Game.showTable
       Game.turn(Game.gPlayers(turns))
     }
