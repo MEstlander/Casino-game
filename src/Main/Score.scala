@@ -16,14 +16,10 @@ class Score(val players: Array[Main.Player]) {
     }
     for (j <- mostCards){
       j.score += 1
-<<<<<<< HEAD
       
-    }
+   
+  } 
     this.mostSpades()
-=======
-      this.mostSpades()
-    }
->>>>>>> b70d4655f62ddc9ec5186d1589114c5a2be7a44d
   }
   
   def mostSpades():Unit = {
@@ -52,11 +48,8 @@ class Score(val players: Array[Main.Player]) {
       for(j <- i.collected){
         i.score += j.point
     }
-<<<<<<< HEAD
     print("\nPlayer " + i.Name + " has " + i.score + " points\n")
-=======
-    print("Player" + i.Name + "has" + i.score + "points\n ")
->>>>>>> b70d4655f62ddc9ec5186d1589114c5a2be7a44d
+
   }
     this.winner()
   }
@@ -91,13 +84,13 @@ class Score(val players: Array[Main.Player]) {
         }
       }
       else{
-<<<<<<< HEAD
-        print("\n ============================== \n" +
+        val name = winners(0).Name
+        var dis = ""
+        for(i <- 1 to name.length) dis = dis + "="
+        print("\n ===========================" + dis +" \n" +
             " === THE WINNER IS " + winners(0).Name + "! ! ! === \n" +
-            " ==============================")
-=======
-        print("THE WINNER IS" + winners(0).Name + "!!!!!!")
->>>>>>> b70d4655f62ddc9ec5186d1589114c5a2be7a44d
+            " ===========================" + dis)
+
       }
     }
   }

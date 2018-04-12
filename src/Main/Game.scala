@@ -54,6 +54,10 @@ object Game extends App {
     
 	  print("Name of player?\n")
     addPlayer(CheckInput("names"))
+    
+    print("\n Bot?(Y or anything) \n")
+    if(CheckInput("names") == "Y")
+      gPlayers(i - 1 ).Bot = true
     }
   gPlayers = scala.util.Random.shuffle(gPlayers.toList).toArray //shuffle players to random order
   }
@@ -142,12 +146,21 @@ object Game extends App {
   def turn(p: Main.Player): Unit = {
     p.showHand
     print("Which card do you wanna use?\n")
-      var index: Int = CheckInput("turn").toInt 
-    
+    var index = 0
+    if(p.Bot){
+      index = Main.BotMove.useCardMove(p, gTable)
+    } else{
+      index = CheckInput("turn").toInt 
+    }
     if(index == 0){
-      print("Which card do you want to give to the table?\n")
-      gTable = gTable :+ p.getCard(CheckInput("turn2").toInt)
-      return
+      if(p.Bot){
+        gTable = gTable :+ p.getCard(scala.math.max(p.hand.length - 1, 1))
+        return
+      } else{
+        print("Which card do you want to give to the table?\n")
+        gTable = gTable :+ p.getCard(CheckInput("turn2").toInt)
+        return
+      }
     }else if(index > p.hand.length){
       print("No such card")
       turn(p)
@@ -163,15 +176,19 @@ object Game extends App {
   def collect(p: Main.Player, in: Main.Card): Unit = {
     print("Which cards do you want to pick up?\n")
     collCard = in
+    var cardIndexes = Array("hi")
     var cardValue = 0
-    var cardIndexes = Array(CheckInput("collect"))
-    
+    if(p.Bot){
+      cardIndexes = Array(Main.BotMove.collCards(gTable))
+    } else{
+      cardIndexes = Array(CheckInput("collect"))
+    }
     if(cardIndexes(0) == "0") { //return if you type wrong / can't use that card
         p.addToHand(in)
         turn(p)
       }
     var cheatArray = Array(-1)
-    for(i <- cardIndexes(0).split(",")){
+    for(i <- cardIndexes(0).split(",")){ //used to check that players dont try to pick up the same card twice
       for(j <- i.split("\\+")){
         if(cheatArray.contains(j.toInt)){
           print(" ========== NO CHEATING ==========")
@@ -196,7 +213,7 @@ object Game extends App {
         this.collect(p, in)
       }
     }
-      var collCards = Array[Main.Card](new Card(15, "G")) //Golden15 never to be used
+      var collCards = Array[Main.Card](new Card(15, "G")) //Golden15 never to be used (avoids the null pointer exception)
       for(i <- cardIndexes){
         for(j <- i.split("\\+")){
         collCards = collCards :+ gTable(j.toInt - 1)

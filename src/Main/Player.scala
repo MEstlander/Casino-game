@@ -2,6 +2,7 @@ package Main
 // Creates player and tracks points collected cards and which are in hand
 class Player(val Name: String) {
   var score = 0
+  var Bot = false
   var hand = Array[Main.Card]()
   var collected = Array[Main.Card]()
   
