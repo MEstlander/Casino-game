@@ -56,11 +56,11 @@ object Game extends App {
 	  print("Name of player?\n")
     addPlayer(CheckInput("names"))
     
-    print("\n Bot?(Y or anything) \n")
+    print("\nBot?(Y for yes) \n")
     if(CheckInput("names") == "Y")
       gPlayers(i - 1 ).Bot = true
     }
-  gPlayers = scala.util.Random.shuffle(gPlayers.toList).toArray //shuffle players to random order
+  gPlayers = scala.util.Random.shuffle(gPlayers.toList).toArray//shuffle players to random order
   }
 	def addPlayer(a: String){
 	  if(gPlayers.isEmpty){
@@ -73,10 +73,10 @@ object Game extends App {
   
   def dealToTable(a: Main.Card) = {
     if (gTable.length == 0){
-      gTable = Array(gDeck.dealCard())
+      gTable = Array(a)
     }
     else{
-      gTable = gTable :+ gDeck.dealCard()
+      gTable = gTable :+ a
     }
   }
   
@@ -102,7 +102,7 @@ object Game extends App {
     var dealer = gPlayers(0)
     print("\nRounds begins! Dealer is: " +dealer.Name+"\n")
     gPlayers = gPlayers.tail :+ gPlayers(0) //makes dealer last
-    for(i <- Range(0,4)){
+    for(i <- Array(1,2,3,4)){
       dealToTable(gDeck.dealCard)
       for(j <- gPlayers){
         j.addToHand(gDeck.dealCard)
@@ -145,8 +145,13 @@ object Game extends App {
   }
   
   def turn(p: Main.Player): Unit = {
+    if (p.hand.length == 0){
+      for(i <- gPlayers)
+        print(i.hand.length)
+    }
     p.showHand
     print("Which card do you wanna use?\n")
+    print(gDeck.cards.length.toString)
     var index = 0
     if(p.Bot){
       index = Main.BotMove.useCardMove(p, gTable)

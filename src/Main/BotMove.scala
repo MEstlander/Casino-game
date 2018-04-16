@@ -6,7 +6,7 @@ import java.time._
 object BotMove {
   var collSum = 0
   def useCardMove(player: Main.Player, table: Array[Main.Card]): Int = {
-    Thread.sleep(100L)
+    Thread.sleep(500L)
     player.hand = player.hand.sortBy(_.handValue) //sorts so it tries to use highest value cards first
     val tableIndexs = table.map(a => a.value).zipWithIndex
     val cardsIndex = player.hand.map(a => a.handValue).zipWithIndex
@@ -35,7 +35,7 @@ object BotMove {
     0
   }
   def collCards(table: Array[Main.Card]): String = {
-    Thread.sleep(100L)
+    Thread.sleep(500L)
     val tableIndexs = table.map(a => a.value).zipWithIndex
     for(x <- tableIndexs){
       for(j <- tableIndexs.drop(x._2 + 1)){

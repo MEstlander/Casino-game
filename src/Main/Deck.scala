@@ -24,7 +24,6 @@ object Deck {
       }
       
     }
-    cards = cards :+ new Card(1, "H")
     var a = cards.toList
     a = scala.util.Random.shuffle(a)
     cards = a.toArray

@@ -36,7 +36,7 @@ class Player(val Name: String) {
     if(index <= hand.length){
       val card = hand(i)
       hand = hand.take(i) ++ hand.takeRight(hand.length - index)
-      print(card.thisCard() + " was chosen!\n")
+      print("\n" + card.thisCard() + " was chosen!\n")
       card
     } else {
       print ("New try. Options :\n") 

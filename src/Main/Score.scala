@@ -17,7 +17,6 @@ class Score(val players: Array[Main.Player]) {
     for (j <- mostCards){
       j.score += 1
       
-   
   } 
     this.mostSpades()
   }
@@ -49,7 +48,6 @@ class Score(val players: Array[Main.Player]) {
         i.score += j.point
     }
     print("\nPlayer " + i.Name + " has " + i.score + " points\n")
-
   }
     this.winner()
   }
@@ -78,10 +76,12 @@ class Score(val players: Array[Main.Player]) {
       }
     if(winners.length > 0){
       if(winners.length > 1){
-        print ("It's a tie between:\n")
+        print("\n ===========================" + " \n")
+        print (" === It is a tie between ===\n")
         for (k <- winners){
-          print(k.Name + "\n")
+          print(" =====\t\t" + k.Name + "\t=====\n")
         }
+        print(" ===========================" +" \n")
       }
       else{
         val name = winners(0).Name
