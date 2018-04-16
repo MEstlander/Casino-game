@@ -6,6 +6,8 @@ object SaveLoad {
   
   
   def Save(func: String, turns: Int) :Unit = {
+    //writes all cruical data to text file and 
+    // puts header for where what data belongs
     try{
       var save = new PrintWriter(new File("save.txt"))
       save.write("Deck")
@@ -75,6 +77,8 @@ object SaveLoad {
   
   
   def Load() = {
+    //Loads the game depending from text file
+    //Uses Phase lines to make the data go into correct place
     Game
     var phases : Array[String] = Array("Bot","Funct", "Deck", "Table", "Players", "Hand", "Collected", "Score", "Lp", "Round", "Turn")
     var phase = ""

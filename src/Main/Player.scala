@@ -16,6 +16,7 @@ class Player(val Name: String) {
   }
   
   def showHand() = {
+    //Prints hand so player can see their cards
     print("\n\n ========== YOUR  CARDS ========== \n\n")
     for(i <- hand){
       print(i.thisCard + "\t")
@@ -23,6 +24,7 @@ class Player(val Name: String) {
     print("\n\n")
   }
   def coll(c: Main.Card) = {
+    // adds card to stack
     try{
       this.collected = this.collected :+ c
     }
@@ -32,6 +34,7 @@ class Player(val Name: String) {
   }
   
   def getCard(index: Int ): Main.Card = {
+    // returns and removes a card at a certain index
     var i = index - 1
     if(index <= hand.length){
       val card = hand(i)

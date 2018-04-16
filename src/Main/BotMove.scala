@@ -13,6 +13,13 @@ object BotMove {
     var tableSumms = Array[Int]()
     for(x <- tableIndexs){
       for(j <- tableIndexs.drop(x._2 + 1)){
+        for(z <- tableIndexs.drop(x._2 + 1)){
+          if(tableSumms.length == 0){
+            tableSumms = Array(x._1+j._1 + z._1)
+          } else{
+            tableSumms :+ (x._1 + j._1 + z._1)
+          }
+        }
         if(tableSumms.length == 0){
           tableSumms = Array(x._1+j._1)
         }
@@ -37,10 +44,22 @@ object BotMove {
   def collCards(table: Array[Main.Card]): String = {
     Thread.sleep(500L)
     val tableIndexs = table.map(a => a.value).zipWithIndex
+    //checks 3 card combos first
+    for(x <- tableIndexs){
+      for(j <- tableIndexs.drop(x._2 + 1)){
+        for(z <- tableIndexs.drop(x._2+ 2)){
+          if(x._1 + j._1 + z._1 == collSum) return (x._2 + 1).toString + '+' + (j._2 + 1) + '+' + (z._2 + 1)
+        }
+      }
+    }
+    // then 2 card combos
     for(x <- tableIndexs){
       for(j <- tableIndexs.drop(x._2 + 1)){
         if(x._1 + j._1 == collSum) return (x._2 + 1).toString + '+' + (j._2 + 1)
       }
+    }
+    //lastly single card pickups
+    for(x <- tableIndexs){
       if(x._1 == collSum) return (x._2 + 1).toString
     }
     "0"
