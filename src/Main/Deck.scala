@@ -30,11 +30,6 @@ object Deck {
     cards
   }
   
-  def shuffleDeck():Unit = {
-    var a = this.cards.toList
-    a = scala.util.Random.shuffle(a)
-    this.cards = a.toArray
-  }
   def dealCard(): Main.Card = {
     // saves the first Card as a variable then 
     // removes it from the deck
